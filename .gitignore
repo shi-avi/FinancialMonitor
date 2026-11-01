@@ -1,0 +1,22 @@
+# .NET build files
+**/bin/
+**/obj/
+**/.vs/
+
+# User-specific files
+**/*.user
+**/*.suo
+
+# Local databases
+**/*.db
+**/*.db-shm
+**/*.db-wal
+
+# Environment files and local settings
+**/.env
+**/appsettings.Development.json
+
+# Frontend dependencies and build
+**/node_modules/
+**/dist/
+**/build/
