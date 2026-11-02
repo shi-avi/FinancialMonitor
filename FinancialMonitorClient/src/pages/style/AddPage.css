@@ -1,0 +1,192 @@
+.add-page {
+  min-height: 100vh;
+  padding: 60px 24px;
+  background: #f4f7fb;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: #1e293b;
+  box-sizing: border-box;
+}
+
+.add-header {
+  max-width: 650px;
+  margin: 0 auto 32px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.header-icon {
+  width: 54px;
+  height: 54px;
+  background: #e8efff;
+  color: #3867d6;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.add-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: #172554;
+}
+
+.add-header p {
+  margin: 0;
+  color: #8491a5;
+  font-size: 14px;
+}
+
+.transaction-card {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 36px;
+  background: #ffffff;
+  border: 1px solid #e8edf5;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(31, 50, 81, 0.06);
+  box-sizing: border-box;
+}
+
+.card-header {
+  margin-bottom: 30px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.card-header h2 {
+  font-size: 19px;
+  margin: 0 0 8px;
+  color: #253451;
+}
+
+.card-header p {
+  font-size: 13px;
+  color: #94a0b2;
+  margin: 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 23px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #dce3ed;
+  border-radius: 9px;
+  background: #fbfcfe;
+  color: #334155;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #4d79e8;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(77, 121, 232, 0.1);
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper .input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 16px;
+}
+
+.input-wrapper input {
+  padding-left: 34px;
+}
+
+.transaction-card button {
+  width: 100%;
+  height: 50px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 9px;
+  background: #3867d6;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.transaction-card button:hover:not(:disabled) {
+  background: #2854bd;
+  transform: translateY(-1px);
+}
+
+.transaction-card button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.form-message {
+  margin-top: 20px;
+  padding: 13px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.form-message.success {
+  background: #ecfdf3;
+  color: #16834a;
+  border: 1px solid #c5f0d6;
+}
+
+.form-message.error {
+  background: #fff1f1;
+  color: #c03939;
+  border: 1px solid #ffd5d5;
+}
+
+.page-footer {
+  text-align: center;
+  margin-top: 30px;
+  color: #a0aabb;
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .add-page {
+    padding: 35px 16px;
+  }
+
+  .transaction-card {
+    padding: 24px 20px;
+  }
+
+  .add-header h1 {
+    font-size: 23px;
+  }
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { transactionService } from "../services/transactionService";
 import type { TransactionStatus } from "../types/transaction";
+import "./style/AddPage.css";
 
 function AddPage() {
   const [amount, setAmount] = useState<string>("");
@@ -37,57 +38,87 @@ function AddPage() {
   };
 
   return (
-    <div>
-      <h1>Add Transaction</h1>
-
-      <form onSubmit={handleSubmit}>
+    <div className="add-page">
+      <div className="add-header">
+        <div className="header-icon">↗</div>
         <div>
-          <label htmlFor="amount">Amount:</label>
-          <input
-            id="amount"
-            type="number"
-            min="0.01"
-            step="0.01"
-            value={amount}
-            onChange={(event) => setAmount(event.target.value)}
-            required
-          />
+          <h1>Add Transaction</h1>
+          <p>Create a new financial transaction</p>
+        </div>
+      </div>
+
+      <div className="transaction-card">
+        <div className="card-header">
+          <h2>Transaction Details</h2>
+          <p>Enter the transaction information below</p>
         </div>
 
-        <div>
-          <label htmlFor="currency">Currency:</label>
-          <select
-            id="currency"
-            value={currency}
-            onChange={(event) => setCurrency(event.target.value)}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="amount">Amount</label>
+            <div className="input-wrapper">
+              <span className="input-icon">$</span>
+              <input
+                id="amount"
+                type="number"
+                min="0.01"
+                step="0.01"
+                placeholder="0.00"
+                value={amount}
+                onChange={(event) => setAmount(event.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="currency">Currency</label>
+            <select
+              id="currency"
+              value={currency}
+              onChange={(event) => setCurrency(event.target.value)}
+            >
+              <option value="USD">USD - US Dollar</option>
+              <option value="EUR">EUR - Euro</option>
+              <option value="ILS">ILS - Israeli Shekel</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="status">Transaction Status</label>
+            <select
+              id="status"
+              value={status}
+              onChange={(event) =>
+                setStatus(event.target.value as TransactionStatus)
+              }
+            >
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+              <option value="Failed">Failed</option>
+            </select>
+          </div>
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Creating..." : "Create Transaction"}
+            {!loading && <span>→</span>}
+          </button>
+        </form>
+
+        {message && (
+          <div
+            className={`form-message ${
+              message.startsWith("Transaction") ? "success" : "error"
+            }`}
           >
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option value="ILS">ILS</option>
-          </select>
-        </div>
+            {message}
+          </div>
+        )}
+      </div>
 
-        <div>
-          <label htmlFor="status">Status:</label>
-          <select
-            id="status"
-            value={status}
-            onChange={(event) =>
-              setStatus(event.target.value as TransactionStatus)
-            }
-          >
-            <option value="Pending">Pending</option>
-            <option value="Completed">Completed</option>
-            <option value="Failed">Failed</option>
-          </select>
-        </div>
-
-        <button type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Create Transaction"}
-        </button>
-      </form>
-
-      {message && <p>{message}</p>}
+      <p className="page-footer">
+        Financial Monitor · Transaction Management
+      </p>
     </div>
   );
 }
