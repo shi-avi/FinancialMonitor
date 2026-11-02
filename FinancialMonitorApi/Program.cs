@@ -79,3 +79,5 @@ app.MapControllers();
 app.MapHub<TransactionsHub>("/hubs/transactions");
 
 app.Run();
+
+public partial class Program { }

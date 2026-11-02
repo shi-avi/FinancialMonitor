@@ -2,13 +2,21 @@
 import { useEffect, useState } from "react";
 import { transactionService } from "../services/transactionService";
 import { signalRService } from "../services/signalRService";
-import type { Transaction } from "../types/transaction";
+import type { Transaction, TransactionStatus } from "../types/transaction";
 import "./style/MonitorPage.css"
 
 function MonitorPage() {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
+    const [statusFilter, setStatusFilter] = useState<"All" | TransactionStatus>("All");
+
+    const filteredTransactions =
+        statusFilter === "All"
+            ? transactions
+            : transactions.filter(
+                transaction => transaction.status === statusFilter
+            );
 
     useEffect(() => {
         let isActive = true;
@@ -144,12 +152,30 @@ function MonitorPage() {
 
                 <div className="transactions-header">
                     <h2>Recent Transactions</h2>
-                    <span className="transactions-count">
-                        {transactions.length} Records
-                    </span>
+
+                    <div className="transactions-controls">
+                        <select
+                            className="transactions-filter"
+                            value={statusFilter}
+                            onChange={(event) =>
+                                setStatusFilter(
+                                    event.target.value as "All" | TransactionStatus
+                                )
+                            }
+                        >
+                            <option value="All">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Failed">Failed</option>
+                        </select>
+
+                        <span className="transactions-count">
+                            {filteredTransactions.length} of {transactions.length} Records
+                        </span>
+                    </div>
                 </div>
 
-                {transactions.length === 0 ? (
+                {filteredTransactions.length === 0 ? (
                     <div className="monitor-message">
                         No transactions found.
                     </div>
@@ -166,7 +192,7 @@ function MonitorPage() {
                         </thead>
 
                         <tbody>
-                            {transactions.map((transaction) => (
+                            {filteredTransactions.map((transaction) => (
                                 <tr key={transaction.transactionId}>
                                     <td className="transaction-id">
                                         {transaction.transactionId}
