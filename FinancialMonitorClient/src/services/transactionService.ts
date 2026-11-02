@@ -1,6 +1,5 @@
 import type { Transaction } from "../types/transaction";
-
-const API_URL = "http://localhost:5000/api/transactions";
+import { API_URL } from "../config/apiConfig";
 
 export const transactionService = {
   async getAll(): Promise<Transaction[]> {

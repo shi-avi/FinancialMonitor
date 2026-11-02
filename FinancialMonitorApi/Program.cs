@@ -9,11 +9,33 @@ using FinancialMonitorApi.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy =>
+    {
+        policy
+            .WithOrigins(builder.Configuration["Frontend:Url"]!)
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 
-builder.Services.AddSignalR();
+builder.Services
+    .AddSignalR()
+    .AddJsonProtocol(options =>
+    {
+        options.PayloadSerializerOptions.Converters.Add(
+            new JsonStringEnumConverter(
+                namingPolicy: null,
+                allowIntegerValues: false
+            )
+        );
+    });
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(
@@ -47,6 +69,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("Frontend");
 
 app.UseAuthorization();
 

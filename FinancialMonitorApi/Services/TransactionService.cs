@@ -42,6 +42,10 @@ public class TransactionService : ITransactionService
         };
 
         await _repository.AddAsync(transaction);
+        
+        Console.WriteLine(
+            $"Sending transaction status: {transaction.Status}"
+        );
 
         await _hubContext.Clients.All.SendAsync(
             "NewTransaction",
